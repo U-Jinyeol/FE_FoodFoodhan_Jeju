@@ -11,6 +11,7 @@ import Detail from "./pages/Detail";
 import Main from "./pages/Main";
 import Header from "./components/Header";
 import Grid from "./elements/Grid";
+import Nav from "./components/Nav";
 
 import { useDispatch } from "react-redux";
 
@@ -30,8 +31,9 @@ function App() {
     <React.Fragment>
       <Grid>
         <Header></Header>
+        <Nav></Nav>
         <ConnectedRouter history={history}>
-          <Route path="/main" exact component={Main} />
+          <Route path="/" exact component={Main} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/detail" exact component={Detail} />
