@@ -3,11 +3,25 @@ import styled from "styled-components";
 import Text from "../elements/Text";
 import logo from "../logo.jpg";
 import Grid from "../elements/Grid";
+import { history } from "../redux/configStore";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <Login>
+        <div>
+          <Text
+            bold
+            margin="10px 10px"
+            _onClick={() => {
+              history.push("/");
+            }}
+          >
+            Home
+          </Text>
+        </div>
         <Text bold margin="10px 10px">
           로그인
         </Text>

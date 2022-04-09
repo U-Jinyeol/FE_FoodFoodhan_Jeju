@@ -5,7 +5,7 @@ const ADD_TODO = "todos/ADD_TODO";
 const DELETE_TODO = "todos/DELETE_TODO";
 const UPDATE_TODO = "todos/UPDATE_TODO";
 
-// Action creators
+// Action creators 가나다라마바사
 export const addTodo = (title) => ({
   type: ADD_TODO,
   payload: { ...title, id },

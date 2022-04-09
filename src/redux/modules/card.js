@@ -1,48 +1,83 @@
-let id = 3;
+import axios from "axios";
 
 // Action
-const ADD_CARD = "todos/ADD_CARD";
-const DELETE_CARD = "todos/DELETE_CARD";
-const UPDATE_CARD = "todos/UPDATE_CARD";
+const LOAD_CARD = "LOAD_CARD";
+const UPDATE_CARD = "UPDATE_CARD";
 
 // Action creators
-export const addCard = (title, id) => ({
-  type: ADD_CARD,
-  payload: { ...title, id },
-});
-
-export const deleteCard = (payload) => ({
-  type: DELETE_CARD,
+export const loadCard = (payload) => ({
+  type: LOAD_CARD,
   payload,
 });
 
-export const updateCard = (title, id) => ({
+export const updateCard = (title) => ({
   type: UPDATE_CARD,
-  payload: { title, id },
+  payload: { title },
 });
 
 // 초기값
 const initialState = {
-  cards: [
-    { id: 1, title: "리덕스 연습" },
-    { id: 2, title: "저녁 먹기" },
-  ],
+  cards: [],
 };
+
+//middleware 메인화면 LOAD
+export const loadCardAX = () => {
+  return async function (dispatch, getState) {
+    try {
+      const { data } = await axios.get("http://localhost:3003/cards/");
+      console.log(data);
+
+      let card_list = [...data];
+
+      console.log(card_list);
+      dispatch(loadCard(card_list));
+    } catch (error) {
+      alert("에러가 발생했습니다.");
+      console.log(error);
+    }
+  };
+};
+
+export const regionCardAX = (region) => {
+  return async function (dispatch, getState) {
+    const { data } = await axios.get("http://localhost:3003/cards");
+    console.log(data);
+    console.log(region);
+    let card_list = [...data];
+
+    if (region === "All") {
+      return dispatch(loadCard(card_list));
+    } else {
+      console.log(region);
+      const region_list = card_list.filter(
+        (e) => e.regions.regionName === region
+      );
+
+      console.log(region_list);
+      return dispatch(loadCard(region_list));
+    }
+  };
+};
+
+//middleware Get test
+// export const addCardAX = () => {
+//   return async function (dispatch, getState) {
+//     try {
+//       const { data } = await axios.get("http://52.79.239.130/api/comments");
+//       console.log(data);
+//     } catch (error) {
+//       alert("에러가 발생했습니다.");
+//       console.log(error);
+//     }
+//   };
+// };
 
 // Reducer
 const card = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_CARD: {
-      id++;
-      const new_list = [...state.cards, action.payload];
-      return { todos: new_list };
-    }
-
-    case DELETE_CARD: {
-      const new_list = state.cards.filter((e) => {
-        return action.payload !== e.id;
-      });
-      return { cards: new_list };
+    case LOAD_CARD: {
+      console.log(action.payload);
+      return { cards: action.payload };
     }
 
     case UPDATE_CARD: {

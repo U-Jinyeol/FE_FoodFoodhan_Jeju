@@ -1,0 +1,94 @@
+{
+  "cards": [
+    {
+      "storeId": "1",
+      "store": {
+        "storeId": "1",
+        "image": "https://img.insight.co.kr/static/2020/09/26/700/img_20200926141402_cd1rk7ql.jpg",
+        "storeName": "할망라면",
+        "regionName": "성산",
+        "like": "100",
+        "commentCnt": "205",
+        "desc": "천연 오션뷰에서의 할매가 직접 물질해서 잡은 신선한 해산물로 만들어주는 얼큰한 해물라면",
+        "address": "제주도 제주 제주 제주 101",
+        "phone": "010-3838-1111"
+      },
+      "regions": {
+        "seeAll": "all",
+        "regionName": "성산"
+      }
+    },
+    {
+      "storeId": "2",
+      "store": {
+        "storeId": "2",
+        "image": "https://blog.kakaocdn.net/dn/eq50c7/btq5Rt94wwN/vUT6hSUZWrFvYUUeFzjtMK/img.jpg",
+        "storeName": "별돈별",
+        "regionName": "한림",
+        "like": "575",
+        "commentCnt": "112",
+        "desc": "흑돼지에 감성을 담은 뷰로, 제주도의 바다와 육지 고기가 함께하는 커플추천 고기집",
+        "address": "제주도 제주 제주 제주 101",
+        "phone": "010-3838-1111"
+      },
+      "regions": {
+        "seeAll": "all",
+        "regionName": "한림"
+      }
+    },
+    {
+      "storeId": "3",
+      "store": {
+        "storeId": "3",
+        "image": "https://t1.daumcdn.net/cfile/blog/999C054F5B8DE82F06",
+        "storeName": "은희네 해장국",
+        "regionName": "제주시",
+        "like": "321",
+        "commentCnt": "555",
+        "desc": "거하게 술먹은 다음날.. 은희네해장국을 찾지 않는 당신은 지금 제주도가 아니다...!!",
+        "address": "제주도 제주 제주 제주 101",
+        "phone": "010-3838-1111"
+      },
+      "regions": {
+        "seeAll": "all",
+        "regionName": "제주시"
+      }
+    },
+    {
+      "storeId": "4",
+      "store": {
+        "storeId": "4",
+        "image": "https://t1.daumcdn.net/liveboard/dailylife/c60e1b814f674beb936d4ce8866de34a.jpg",
+        "storeName": "고기집",
+        "regionName": "제주시",
+        "like": "321",
+        "commentCnt": "555",
+        "desc": "거하게 술먹은 다음날.. 은희네해장국을 찾지 않는 당신은 지금 제주도가 아니다...!!",
+        "address": "제주도 제주 제주 제주 101",
+        "phone": "010-3838-1111"
+      },
+      "regions": {
+        "seeAll": "all",
+        "regionName": "제주시"
+      }
+    },
+    {
+      "storeId": "5",
+      "store": {
+        "storeId": "5",
+        "image": "http://www.polinews.co.kr/data/photos/201804/art_1524730545.jpg",
+        "storeName": "통갈치",
+        "regionName": "제주시",
+        "like": "321",
+        "commentCnt": "555",
+        "desc": "거하게 술먹은 다음날.. 은희네해장국을 찾지 않는 당신은 지금 제주도가 아니다...!!",
+        "address": "제주도 제주 제주 제주 101",
+        "phone": "010-3838-1111"
+      },
+      "regions": {
+        "seeAll": "all",
+        "regionName": "제주시"
+      }
+    }
+  ]
+}
