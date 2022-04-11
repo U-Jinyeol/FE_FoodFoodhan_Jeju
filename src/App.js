@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configStore";
 
@@ -32,10 +32,13 @@ function App() {
         <Header></Header>
         <Nav></Nav>
         <ConnectedRouter history={history}>
-          <Route path="/" exact component={Main} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/detail/:card_index" exact component={Detail} />
+          <Switch>
+            <Route path="/main" exact component={Main} />
+            <Route path="/main/:region_name" exact component={Main} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/detail/:store_id" exact component={Detail} />
+          </Switch>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>

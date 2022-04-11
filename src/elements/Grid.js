@@ -13,6 +13,7 @@ const Grid = (props) => {
     bg,
     children,
     center,
+    flex_wrap,
   } = props;
 
   const styles = {
@@ -25,6 +26,7 @@ const Grid = (props) => {
     bg: bg,
     center: center,
     height: height,
+    flex_wrap: flex_wrap,
   };
   return (
     <React.Fragment>
@@ -34,7 +36,7 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
-  chidren: null,
+  children: null,
   is_flex1: false,
   is_flex2: false,
   is_flex3: false,
@@ -44,10 +46,12 @@ Grid.defaultProps = {
   bg: false,
   center: false,
   height: "100%",
+  flex_wrap: "wrap",
 };
 
 const GridBox = styled.div`
-  height: ${(props) => props.width};
+  flex-wrap: ${(props) => props.flex_wrap};
+  height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}

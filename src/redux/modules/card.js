@@ -38,26 +38,74 @@ export const loadCardAX = () => {
   };
 };
 
-export const regionCardAX = (region) => {
+//middleware 카테고리
+export const regionCardAX = (region_name) => {
   return async function (dispatch, getState) {
-    const { data } = await axios.get("http://localhost:3003/cards");
-    console.log(data);
-    console.log(region);
-    let card_list = [...data];
-
-    if (region === "All") {
-      return dispatch(loadCard(card_list));
-    } else {
-      console.log(region);
-      const region_list = card_list.filter(
-        (e) => e.regions.regionName === region
+    console.log(region_name);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3003/cards/${region_name}`
       );
+      console.log(data);
 
-      console.log(region_list);
-      return dispatch(loadCard(region_list));
+      let region_data = [...data];
+      console.log(region_data);
+      dispatch(loadCard(region_data));
+    } catch (error) {
+      alert("카테고리 실패");
+      console.log(error);
     }
   };
 };
+
+// middleware 상세페이지
+export const detailCardAX = (storeId) => {
+  return async function (dispatch, getState, { history }) {
+    console.log(storeId);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3003/cards/${storeId}`
+      );
+      console.log(data);
+
+      let detail_data = [...data];
+      console.log(detail_data);
+      dispatch(loadCard(detail_data));
+    } catch (error) {
+      alert("상세 페이지 실패");
+      console.log(error);
+    }
+  };
+};
+
+// const { data } = await axios.get("http://localhost:3003/cards", {
+//       params: {
+//         limit: "10",
+//         type: "jeju",
+//         page: "1",
+//       },
+//     });
+
+// export const regionCardAX = (region) => {
+//   return async function (dispatch, getState) {
+//     const { data } = await axios.get("http://localhost:3003/region_name");
+//     console.log(data);
+//     console.log(region);
+//     let card_list = [...data];
+
+//     if (region === "All") {
+//       return dispatch(loadCard(card_list));
+//     } else {
+//       console.log(region);
+//       const region_list = card_list.filter(
+//         (e) => e.regions.regionName === region
+//       );
+
+//       console.log(region_list);
+//       return dispatch(loadCard(region_list));
+//     }
+//   };
+// };
 
 //middleware Get test
 // export const addCardAX = () => {
