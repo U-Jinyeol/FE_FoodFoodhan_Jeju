@@ -1,66 +1,64 @@
-let id = 3;
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 
+import { setCookie, getCookie, deleteCookie } from "../../Cookie.js";
 // Action
-const ADD_TODO = "todos/ADD_TODO";
-const DELETE_TODO = "todos/DELETE_TODO";
-const UPDATE_TODO = "todos/UPDATE_TODO";
 
+const LOG_IN = "user/LOG_IN";
+const LOG_OUT = "user/LOG_OUT";
+const GET_USER = "user/GET_USER";
+
+
+// const ADD_TODO = "todos/ADD_TODO";
+// const DELETE_TODO = "todos/DELETE_TODO";
+// const UPDATE_TODO = "todos/UPDATE_TODO";
+
+<<<<<<< HEAD
 // Action creators 가나다라마바사
 export const addTodo = (title) => ({
   type: ADD_TODO,
   payload: { ...title, id },
 });
+=======
+// Action creators
+const logIn = createAction(LOG_IN, (user) => ({ user }));
+const logOut = createAction(LOG_OUT, (user) => ({ user }));
+const getUser = createAction(GET_USER, (user) => ({ user }));
+>>>>>>> yerim_login
 
-export const deleteTodo = (payload) => ({
-  type: DELETE_TODO,
-  payload,
-});
 
-export const updateTodo = (title, id) => ({
-  type: UPDATE_TODO,
-  payload: { title, id },
-});
 
 // 초기값
 const initialState = {
-  todos: [
-    { id: 1, title: "리덕스 연습" },
-    { id: 2, title: "저녁 먹기" },
-  ],
+  user: null,
+  is_login: false,
 };
 
 // Reducer
-const users = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TODO: {
-      id++;
-      const new_list = [...state.todos, action.payload];
-      return { todos: new_list };
-    }
-
-    case DELETE_TODO: {
-      const new_list = state.todos.filter((e) => {
-        return action.payload !== e.id;
-      });
-      return { todos: new_list };
-    }
-
-    case UPDATE_TODO: {
-      console.log(action.payload);
-      const update_list = state.todos.map((e) => {
-        console.log(e);
-        if (action.payload.id === e.id) {
-          return (e.title = action.payload.title);
-        }
-        console.log(update_list);
-      });
-      return { todos: update_list };
-    }
-
-    default:
-      return state;
-  }
-};
+export default handleActions(
+  {
+    [LOG_IN]: (state, action) =>
+      produce(state, (draft) => {
+        setCookie("is_login", "success");
+        //원래 IS_LOGIN 자리에 토큰이 들어가야함. 지금은 간단하게만 작업함.
+        draft.user = action.payload.user;
+				draft.is_login = true;
+      }),
+		[LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        deleteCookie("is_login");
+        draft.user = null;
+				draft.is_login = false;
+      }),
+    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+  },
+  initialState
+);
 
 // reducer를 내보낸다
-export default users;
+const actionCreators = {
+  logIn,
+  logOut,
+  getUser,
+}
+export {actionCreators};
