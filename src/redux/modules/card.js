@@ -1,8 +1,10 @@
 import axios from "axios";
+import { history } from "../configStore";
 
 // Action
 const LOAD_CARD = "LOAD_CARD";
 const UPDATE_CARD = "UPDATE_CARD";
+const EDIT_LIKE = "EDIT_LIKE";
 
 // Action creators
 export const loadCard = (payload) => ({
@@ -10,9 +12,9 @@ export const loadCard = (payload) => ({
   payload,
 });
 
-export const updateCard = (title) => ({
-  type: UPDATE_CARD,
-  payload: { title },
+export const editLike = (like_data) => ({
+  type: EDIT_LIKE,
+  payload: { like_data },
 });
 
 // 초기값
@@ -24,7 +26,7 @@ const initialState = {
 export const loadCardAX = () => {
   return async function (dispatch, getState) {
     try {
-      const { data } = await axios.get("http://localhost:3003/cards/");
+      const { data } = await axios.get("http://3.37.89.93/api/main");
       console.log(data);
 
       let card_list = [...data];
@@ -44,7 +46,7 @@ export const regionCardAX = (region_name) => {
     console.log(region_name);
     try {
       const { data } = await axios.get(
-        `http://localhost:3003/cards/${region_name}`
+        `http://3.37.89.93/api/main/${region_name}`
       );
       console.log(data);
 
@@ -59,20 +61,50 @@ export const regionCardAX = (region_name) => {
 };
 
 // middleware 상세페이지
-export const detailCardAX = (storeId) => {
+export const detailCardAX = (openApiId) => {
   return async function (dispatch, getState, { history }) {
-    console.log(storeId);
+    console.log(openApiId);
     try {
       const { data } = await axios.get(
-        `http://localhost:3003/cards/${storeId}`
+        `http://3.37.89.93/api/main/${openApiId}/detail`
       );
       console.log(data);
 
-      let detail_data = [...data];
+      let detail_data = [{ ...data }];
       console.log(detail_data);
       dispatch(loadCard(detail_data));
     } catch (error) {
       alert("상세 페이지 실패");
+      console.log(error);
+    }
+  };
+};
+
+//middleware 좋아요 버튼
+export const LikeAX = (storeId, userName) => {
+  return async function (dispatch, getState, { history }) {
+    console.log(storeId);
+    //로그인 되면 이제 토큰도 보내야함
+    if (!storeId) {
+      console.log("게시물 정보 없음");
+      return;
+    }
+
+    try {
+      const { data } = await axios.get("http://localhost:3003/cards");
+      console.log(data);
+      const like_data = {
+        storeId: storeId,
+        userName: userName,
+        likeCnt: data.likeCnt,
+        likeState: data.likeState,
+      };
+
+      let detail_data = [...data];
+      console.log(detail_data);
+      // dispatch(loadCard(detail_data));
+    } catch (error) {
+      alert("좋아요 실패");
       console.log(error);
     }
   };
@@ -88,7 +120,7 @@ export const detailCardAX = (storeId) => {
 
 // export const regionCardAX = (region) => {
 //   return async function (dispatch, getState) {
-//     const { data } = await axios.get("http://localhost:3003/region_name");
+//     const { data } = await axios.get("http://localhost:3003/cards");
 //     console.log(data);
 //     console.log(region);
 //     let card_list = [...data];
@@ -107,19 +139,6 @@ export const detailCardAX = (storeId) => {
 //   };
 // };
 
-//middleware Get test
-// export const addCardAX = () => {
-//   return async function (dispatch, getState) {
-//     try {
-//       const { data } = await axios.get("http://52.79.239.130/api/comments");
-//       console.log(data);
-//     } catch (error) {
-//       alert("에러가 발생했습니다.");
-//       console.log(error);
-//     }
-//   };
-// };
-
 // Reducer
 const card = (state = initialState, action) => {
   switch (action.type) {
@@ -128,16 +147,20 @@ const card = (state = initialState, action) => {
       return { cards: action.payload };
     }
 
-    case UPDATE_CARD: {
+    case EDIT_LIKE: {
       console.log(action.payload);
-      const update_list = state.cards.map((e) => {
-        if (action.payload.id === e.id) {
-          return { ...e, title: action.payload.update };
-        }
-        return e;
-      });
-      return { cards: update_list };
     }
+
+    // case UPDATE_CARD: {
+    //   console.log(action.payload);
+    //   const update_list = state.cards.map((e) => {
+    //     if (action.payload.id === e.id) {
+    //       return { ...e, title: action.payload.update };
+    //     }
+    //     return e;
+    //   });
+    //   return { cards: update_list };
+    // }
 
     default:
       return state;
