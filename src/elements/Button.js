@@ -3,16 +3,17 @@ import styled from "styled-components";
 
 const Button = (props) => {
 
-    const {text, _onClick} = props;
+    const {text, _onClick,type} = props;
 
     return (
       <React.Fragment>
-        <ElButton onClick={_onClick}>{text}</ElButton>
+        <ElButton onClick={_onClick} type={type}>{text}</ElButton>
       </React.Fragment>
     );
 }
 
 Button.defaultProps = {
+    type: "text",
     text: "텍스트",
     _onClick: () => {}
 }

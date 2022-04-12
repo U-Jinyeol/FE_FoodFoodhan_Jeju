@@ -12,22 +12,22 @@ const Login = ({history}) => {
    
     //ID = username
     const [userName, setUserName] = useState("");
-    const [pwd, setPwd] = useState("");
+    const [password, setPwd] = useState("");
 
     const login = () =>{
-        if ( userName === "" || pwd === "" ){
-            window.alert("아이디 혹은 비밀번호가 공란입니다.")
+        if ( userName === "" || password === "" ){
+            window.alert("모두 입력해주세요!")
             return;
         }
-        dispatch(logIn.logInDB(userName,pwd)); // 리덕스 로그인 db 연결
-        history.replace("/main"); //메인포트로 할지 슬래시로할지!
+        dispatch(logIn.loginDB(userName,password)); // 리덕스 로그인 db 연결
+        history.push("/main"); 
     }
 
-    const kakao_login = () =>{
+    // const kakao_login = () =>{
         
-        dispatch();
-        history.replace("/main"); //메인포트로 할지 슬래시로할지!
-    }
+    //     dispatch();
+    //     history.replace("/main"); 
+    // }
 
 
 
@@ -37,26 +37,32 @@ const Login = ({history}) => {
             <Grid padding={16}>
                 <Text type="heading">로그인 페이지</Text>
             </Grid>
+
+            <form
+                onSubmit = {(e) => {
+                e.preventDefault();
+                }}>
             <Grid padding={16}>
                 
                 <Input
+                label = "아이디"
                 _onChange = {(e) =>setUserName(e.target.value)}
-                placeholder="아이디를 입력하세요."/>
+                placeholder="아이디를 입력해주세요."/>
                 
                 <Input
+                 label = "비밀번호"
                 _onChange = {(e) =>setPwd(e.target.value)}
                 type="password"
-                placeholder="비밀번호를 입력하세요."/>
+                placeholder="비밀번호를 입력해주세요."/>
 
             </Grid>
 
             <Button _onClick={login} type="submit" text= "로그인"/>
-            <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/>
+            {/* <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/> */}
             <Button _onClick={() => history.push("/signup")}  text= "회원가입으로 이동"/>
         
+            </form>
         </React.Fragment>
     )
 }
-// value={id} onChange={changeId}
-// value={pwd} onChange={changePwd}
 export default Login;
