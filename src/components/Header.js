@@ -16,7 +16,7 @@ const Header = () => {
             bold
             margin="10px 10px"
             _onClick={() => {
-              history.push("/");
+              history.push("/main");
             }}
           >
             Home

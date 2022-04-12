@@ -28,19 +28,17 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid>
-        <Header></Header>
-        <Nav></Nav>
-        <ConnectedRouter history={history}>
-          <Switch>
-            <Route path="/main" exact component={Main} />
-            <Route path="/main/:region_name" exact component={Main} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/detail/:store_id" exact component={Detail} />
-          </Switch>
-        </ConnectedRouter>
-      </Grid>
+      <Header></Header>
+      <Nav></Nav>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/main" exact component={Main} />
+          <Route path="/main/:region_name" exact component={Main} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/detail/:openApiId" exact component={Detail} />
+        </Switch>
+      </ConnectedRouter>
     </React.Fragment>
   );
 }

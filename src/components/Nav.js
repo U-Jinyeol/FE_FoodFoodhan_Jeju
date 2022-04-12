@@ -8,29 +8,46 @@ import { history } from "../redux/configStore";
 
 const Nav = () => {
   const [region, setRegion] = useState([
-    "all",
-    "hanlim",
-    "jeju",
-    "seongsan",
-    "hyeopjae",
+    "제주시내",
+    "한림",
+    "한경",
+    "조천",
+    "구좌",
+    "우도",
+    "추자",
+    "성산",
+    "서귀포시내",
+    "대정",
+    "안덕",
+    "중문",
+    "남원",
+    "표선",
   ]);
   const dispatch = useDispatch();
   return (
     <>
       <Grid is_flex2>
+        <Tag
+          onClick={() => {
+            history.push("/main");
+          }}
+        >
+          전체보기
+        </Tag>
         {region.map((region, idx) => {
           return (
-            <Tag
-              key={idx}
-              onClick={() => {
-                history.push(`/${region}`);
-                dispatch(regionCardAX(region));
-              }}
-              size="20"
-              color="white"
-            >
-              {region}
-            </Tag>
+            <React.Fragment key={idx}>
+              <Tag
+                onClick={() => {
+                  history.push(`/main/${region}`);
+                  dispatch(regionCardAX(region));
+                }}
+                size="20"
+                color="white"
+              >
+                {region}
+              </Tag>
+            </React.Fragment>
           );
         })}
       </Grid>
