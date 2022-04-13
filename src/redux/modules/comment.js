@@ -5,6 +5,7 @@ const ADD_COMM = "comment/ADD_COMM";
 const DELETE_COMM = "comment/DELETE_COMM";
 const UPDATE_COMM = "comment/UPDATE_COMM";
 const GET_COMM = "comment/GET_COMM";
+const EDIT_COMM = "comment/EDIT_COMM";
 
 // Action creators
 export const addComment = (payload) => ({
@@ -27,6 +28,11 @@ export const getComment = (payload) => ({
   payload,
 });
 
+export const editComment = (payload) => ({
+  type: EDIT_COMM,
+  payload,
+});
+
 // 초기값
 const initialState = {
   comments: [],
@@ -41,7 +47,10 @@ export const getCommentAX = (openApiId) => {
       );
       console.log("댓글 가져오기", data);
 
-      let comment_list = [...data];
+      let comment_list = [];
+      data.map((data) => {
+        comment_list.push({ is_edit: false, ...data });
+      });
 
       console.log(comment_list);
       dispatch(getComment(comment_list));
@@ -90,6 +99,21 @@ export const deleteCommentAX = (comment) => {
       alert("에러가 발생했습니다.");
       console.log(error);
     }
+  };
+};
+
+//미들웨어 댓글 수정 활성화
+export const isEdit = (commentId) => {
+  return async function (dispatch, getState) {
+    console.log(commentId);
+
+    const _comment_list = getState().comment.comments;
+    console.log(_comment_list);
+    const comment_index = _comment_list.findIndex((b) => {
+      return b.commentId === commentId;
+    });
+    console.log(comment_index);
+    dispatch(editComment(comment_index));
   };
 };
 
@@ -149,6 +173,24 @@ const comment = (state = initialState, action) => {
         return e;
       });
       return { comments: update_list };
+    }
+
+    case EDIT_COMM: {
+      console.log(action.payload);
+      console.log(state);
+      const edit_list = state.comments.map((e, i) => {
+        if (action.payload === i) {
+          if (e.is_edit === false) {
+            return { ...e, is_edit: true };
+          } else {
+            return { ...e, is_edit: false };
+          }
+        } else {
+          return e;
+        }
+      });
+      console.log(edit_list);
+      return { comments: edit_list };
     }
 
     default:

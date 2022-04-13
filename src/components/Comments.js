@@ -6,22 +6,27 @@ import comment, {
   postCommentAX,
   deleteCommentAX,
   updateCommentAX,
+  isEdit,
 } from "../redux/modules/comment";
 import { FaRegEdit, FaTrashAlt, FaRegWindowClose } from "react-icons/fa";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import card from "../redux/modules/card";
 
 const Comments = () => {
   const dispatch = useDispatch();
   const [comm, setComm] = useState("");
   const [newComm, setNewComm] = useState("");
-  const [editing, setEditing] = useState(false);
+
   const comment_list = useSelector((state) => state.comment);
+  const state = useSelector((state) => state);
   const params = useParams();
   console.log(comment_list);
   console.log(params);
 
-  const toggleEditing = () => setEditing((editing) => !editing);
+  const toggleEditing = (commentId) => {
+    dispatch(isEdit(commentId));
+  };
 
   useEffect(() => {
     dispatch(getCommentAX(params.openApiId));
@@ -45,6 +50,7 @@ const Comments = () => {
         </CommentBtn>
       </CommWrap>
       <br />
+
       {comment_list.comments.map((comment, idx) => {
         if (comment.comment == null) {
           return;
@@ -52,7 +58,7 @@ const Comments = () => {
         return (
           <Fragment key={idx}>
             <div>
-              {editing ? (
+              {comment.is_edit ? (
                 <CommentBox>
                   <CommentName>
                     <EditInput
@@ -64,11 +70,12 @@ const Comments = () => {
 
                   <DelBox>
                     <EditBtn
+                      type="button"
                       onClick={() => {
                         console.log("수정완료");
                         dispatch(
                           updateCommentAX(comment, newComm),
-                          toggleEditing()
+                          toggleEditing(comment.commentId)
                         );
                       }}
                     >
@@ -77,7 +84,9 @@ const Comments = () => {
                     <FaRegWindowClose
                       size={20}
                       style={{ marginLeft: "5px", cursor: "pointer" }}
-                      onClick={toggleEditing}
+                      onClick={() => {
+                        toggleEditing(comment.commentId);
+                      }}
                     />
                   </DelBox>
                 </CommentBox>
@@ -92,7 +101,7 @@ const Comments = () => {
                     <FaRegEdit
                       style={{ marginRight: "15px", cursor: "pointer" }}
                       onClick={() => {
-                        toggleEditing();
+                        toggleEditing(comment.commentId);
                       }}
                     />
                     <FaTrashAlt

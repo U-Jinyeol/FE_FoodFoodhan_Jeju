@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Comments from "../components/Comments";
+import Nav from "../components/Nav";
 import { detailCardAX } from "../redux/modules/card";
 import {
   FaRegCommentDots,
@@ -69,6 +70,7 @@ const CardBox = styled.div`
   border-radius: 5px;
   margin: 20px 20px;
   box-sizing: border-box;
+
   h1 {
     text-align: center;
   }
@@ -90,6 +92,7 @@ const CommentBox = styled.div`
   border-radius: 5px;
   padding: 0 10px;
   box-sizing: border-box;
+  overflow: scroll;
 `;
 
 const LikeBox = styled.div`
