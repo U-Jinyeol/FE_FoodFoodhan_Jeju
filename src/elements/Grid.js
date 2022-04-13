@@ -51,7 +51,7 @@ Grid.defaultProps = {
 
 const GridBox = styled.div`
   flex-wrap: ${(props) => props.flex_wrap};
-  height: ${(props) => props.height};
+  /* height: ${(props) => props.height}; */
   width: ${(props) => props.width};
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}

@@ -26,14 +26,14 @@ const Nav = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <Grid is_flex2>
-        <Tag
+      <Grid is_flex2 width="1300px" margin="0 auto">
+        <AllTag
           onClick={() => {
             history.push("/main");
           }}
         >
-          전체보기
-        </Tag>
+          # 전체보기
+        </AllTag>
         {region.map((region, idx) => {
           return (
             <React.Fragment key={idx}>
@@ -45,7 +45,7 @@ const Nav = () => {
                 size="20"
                 color="white"
               >
-                {region}
+                # {region}
               </Tag>
             </React.Fragment>
           );
@@ -56,7 +56,7 @@ const Nav = () => {
 };
 
 const Tag = styled.h3`
-  border: 0.5px solid #007356;
+  border: 2px solid #007356;
   border-radius: 20px;
   box-sizing: border-box;
   width: 140px;
@@ -65,10 +65,32 @@ const Tag = styled.h3`
   line-height: 40px;
   color: #333333;
   margin: 20px 10px 0px 10px;
+  cursor: pointer;
+  :hover {
+    background-color: #f49a28;
+    color: white;
+    border: 1px solid white;
+    box-shadow: 0 0 3px black;
+  }
 `;
 
-const Hr = styled.hr`
-  border: 1px solid #007356;
+const AllTag = styled.h3`
+  border: 2px solid #f49a28;
+  border-radius: 20px;
+  box-sizing: border-box;
+  width: 140px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  color: #333333;
+  margin: 20px 10px 0px 10px;
+  cursor: pointer;
+  :hover {
+    background-color: #007356;
+    color: white;
+    box-shadow: 0 0 3px black;
+    border: 1px solid white;
+  }
 `;
 
 export default Nav;

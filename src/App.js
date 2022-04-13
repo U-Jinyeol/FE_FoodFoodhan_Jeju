@@ -29,7 +29,6 @@ function App() {
   return (
     <React.Fragment>
       <Header></Header>
-      <Nav></Nav>
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/main" exact component={Main} />

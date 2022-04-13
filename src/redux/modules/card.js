@@ -41,12 +41,12 @@ export const loadCardAX = () => {
 };
 
 //middleware 카테고리
-export const regionCardAX = (region_name) => {
+export const regionCardAX = (regionName) => {
   return async function (dispatch, getState) {
-    console.log(region_name);
+    console.log(regionName);
     try {
       const { data } = await axios.get(
-        `http://3.37.89.93/api/main/${region_name}`
+        `http://3.37.89.93/api/main/${regionName}`
       );
       console.log(data);
 
