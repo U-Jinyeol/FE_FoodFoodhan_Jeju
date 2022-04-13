@@ -48,6 +48,7 @@ export const getCommentAX = (openApiId) => {
       console.log("댓글 가져오기", data);
 
       let comment_list = [];
+
       data.map((data) => {
         comment_list.push({ is_edit: false, ...data });
       });
@@ -64,13 +65,24 @@ export const getCommentAX = (openApiId) => {
 //미들웨어 댓글 등록
 export const postCommentAX = (comment, storeId) => {
   return async function (dispatch, getState) {
-    console.log("댓글등록내용", comment);
+    console.log("댓글등록내용", comment, storeId);
+    console.log(localStorage.getItem("username"));
+    const accessToken = document.cookie.split("=")[1];
     try {
-      const { data } = await axios.post("http://3.37.89.93/api/comment/", {
-        comment: comment,
-        userName: "22",
-        storeId: storeId,
-      });
+      const { data } = await axios.post(
+        "http://3.37.89.93/api/comment/",
+
+        {
+          comment: comment,
+          userName: localStorage.getItem("username"),
+          storeId: storeId,
+        },
+        {
+          headers: {
+            accessToken: `${accessToken}`,
+          },
+        }
+      );
       console.log(data);
 
       let comment_list = { ...data };
@@ -109,6 +121,7 @@ export const isEdit = (commentId) => {
 
     const _comment_list = getState().comment.comments;
     console.log(_comment_list);
+
     const comment_index = _comment_list.findIndex((b) => {
       return b.commentId === commentId;
     });

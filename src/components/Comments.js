@@ -43,6 +43,7 @@ const Comments = () => {
         <CommentBtn
           type="button"
           onClick={() => {
+            console.log(params.openApiId);
             dispatch(postCommentAX(comm, params.openApiId));
           }}
         >
@@ -94,7 +95,7 @@ const Comments = () => {
                 <CommentBox key={idx}>
                   <CommentName>
                     <h3>{comment.comment}</h3>
-                    <p>{comment.username}</p>
+                    <p>{comment.userName}</p>
                   </CommentName>
 
                   <DelBox>
