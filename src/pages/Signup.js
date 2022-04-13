@@ -9,19 +9,19 @@ import { actionCreators as signupAction } from "../redux/modules/user";
 const Signup = ({history}) => {
   const isLogin = useSelector((store)=> store.user.is_login);
   const dispatch = useDispatch();
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   // const [nickname, setNickname] = useState(""); 
   const [password, setPwd] = useState("");
   const [pwdCheck,setPwdCheck] = useState("");
 
 
   const signup=()=>{
-    // if (userName === nickname){
+    // if (username === nickname){
     //   window.alert("아이디와 닉네임이 중복됩니다.");
     //   return;
     // }
 
-    if(userName === "" || password === ""  || pwdCheck === "") { // || nickname === ""
+    if(username === "" || password === ""  || pwdCheck === "") { // || nickname === ""
       window.alert("모두 입력해주세요!"); 
       return;
     }
@@ -31,7 +31,7 @@ const Signup = ({history}) => {
       return;
     }
     dispatch(
-      signupAction.signupDB(userName, password) //nickname,
+      signupAction.signupDB(username, password) //nickname,
     );
   }
 
@@ -51,7 +51,7 @@ const Signup = ({history}) => {
             label = "아이디"
             _onChange = {(e) =>setUserName(e.target.value)}
             placeholder="아이디를 입력해주세요."
-            value = {userName}/>
+            value = {username}/>
 
             {/* <Input
             _onChange = {(e) =>setNickname(e.target.value)}

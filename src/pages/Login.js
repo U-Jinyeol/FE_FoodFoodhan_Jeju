@@ -11,16 +11,16 @@ const Login = ({history}) => {
     const dispatch = useDispatch();
    
     //ID = username
-    const [userName, setUserName] = useState("");
+    const [username, setUserName] = useState("");
     const [password, setPwd] = useState("");
 
     const login = () =>{
-        if ( userName === "" || password === "" ){
+        if ( username === "" || password === "" ){
             window.alert("모두 입력해주세요!")
             return;
         }
-        dispatch(logIn.loginDB(userName,password)); // 리덕스 로그인 db 연결
-        history.push("/main"); 
+        dispatch(logIn.loginDB(username,password)); // 리덕스 로그인 db 연결
+        history.replace("/main"); 
     }
 
     // const kakao_login = () =>{
@@ -59,7 +59,7 @@ const Login = ({history}) => {
 
             <Button _onClick={login} type="submit" text= "로그인"/>
             {/* <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/> */}
-            <Button _onClick={() => history.push("/signup")}  text= "회원가입으로 이동"/>
+            <Button _onClick={() => history.push("/signup")}  text= "회원가입"/>
         
             </form>
         </React.Fragment>

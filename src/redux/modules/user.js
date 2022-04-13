@@ -23,16 +23,16 @@ const initialState = {
 };
 
 //middleware
-const loginDB =(userName, password) =>{
+const loginDB =(username, password) =>{
       return function (dispatch, getstate, {history}){
         apis
-              .login(userName, password)
+              .login(username, password)
               .then((res)=>{
                 console.log(res);
-                setCookie('token',res.data[1].token, 7);
-                localStorage.setItem('userName', res.data[0].username);
-                dispatch(logIn({userName:userName}));
-                history.replace('/');
+                setCookie('token',res.data.token, 7);
+                localStorage.setItem('username', res.data.username);
+                dispatch(logIn({username:username}));
+                history.replace('/main');
               })
               .catch((err)=>{
                 window.alert('없는 회원정보 입니다. 회원가입을 해주세요.')
@@ -40,10 +40,10 @@ const loginDB =(userName, password) =>{
       }
 
 }
-const signupDB = (userName,  password)=>{ //nickname, pwdCheck)
+const signupDB = (username,  password)=>{ //nickname, pwdCheck)
   return function (dispatch, getstate, {history}){
     apis
-        .signup(userName, password) //nickname, pwdCheck
+        .signup(username, password) //nickname, pwdCheck
         .then ((res)=>{
                   history.push('/login');  
         })
@@ -52,13 +52,24 @@ const signupDB = (userName,  password)=>{ //nickname, pwdCheck)
         })
   }
 }
+const loginCheckDB = () => {
+	return function (dispatch, getState, { history }) {
+		const username = localStorage.getItem('username');
+		const tokenCheck = document.cookie;
+		if (tokenCheck) {
+			dispatch(logIn({ username: username }));
+		} else {
+			dispatch(logOut());
+		}
+	};
+};
 
 const logoutDB = () => {
 	return function (dispatch, getState, { history }) {
 		deleteCookie('token');
 		localStorage.removeItem('username');
 		dispatch(logOut());
-		history.replace('/main');
+		history.replace('/login');
 	};
 };
 
@@ -89,6 +100,7 @@ const actionCreators = {
   getUser,
   loginDB,
   logoutDB,
-  signupDB
+  signupDB,
+  loginCheckDB
 }
 export {actionCreators};

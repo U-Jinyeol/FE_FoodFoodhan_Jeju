@@ -6,7 +6,7 @@ import emptyHeart from "../Assets/emptyHeart.png";
 
 const Like = ({ heart, onClick }) => {
   const heart_url = heart ? Heart : emptyHeart;
-  console.log(heart);
+  // console.log(heart);
 
   return <HeartI src={heart_url} onClick={onClick} />;
 };
