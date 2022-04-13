@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import Nav from "../components/Nav";
@@ -45,8 +45,8 @@ const Main = () => {
       <Grid is_flex2 margin="30px auto 30px auto" width="1500px">
         {card.map((card, idx) => {
           return (
-            <>
-              <CardBox key={idx}>
+            <Fragment key={idx}>
+              <CardBox>
                 <HeadBox>
                   <HeadText>{card.storeName}</HeadText>
                   <p
@@ -96,7 +96,7 @@ const Main = () => {
               >
                 <BiPlusMedical />
               </DetailBtn>
-            </>
+            </Fragment>
           );
         })}
       </Grid>
