@@ -41,7 +41,7 @@ const Comments = () => {
           placeholder="댓글 입력"
         />
         <CommentBtn
-          type="button"
+          type="submit"
           onClick={() => {
             console.log(params.openApiId);
             dispatch(postCommentAX(comm, params.openApiId));

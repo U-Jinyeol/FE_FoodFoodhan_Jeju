@@ -11,20 +11,20 @@ import Main from "./pages/Main";
 import Header from "./components/Header";
 import Grid from "./elements/Grid";
 import Nav from "./components/Nav";
-
+import { actionCreators } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
 
 function App() {
-  // const dispatch = useDispatch();
 
-  // const _session_key = ""
-  // const is_session = sessionStorage.getItem(_session_key) ? true : false;
+  const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   if (is_session) {
-  //     dispatch(userActions.loginCheckFB());
-  //   }
-  // }, []);
+  const is_login = localStorage.getItem("is_login") ? true : false;
+
+  React.useEffect(() => {
+    if (is_login) {
+      dispatch(actionCreators.loginCheckDB());
+    }
+  }, []);
 
   return (
     <React.Fragment>

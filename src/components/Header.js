@@ -13,7 +13,7 @@ const Header = (props) => {
   const is_token = document.cookie? true:false
     console.log(is_login);
 
-  if (is_token || is_login){
+  if (is_token && is_login){
     return(
       <>
       
@@ -38,7 +38,6 @@ const Header = (props) => {
     );
   }
 
-if(!is_login){
   return (
     <>
      {/* <Container>       */}
@@ -64,7 +63,6 @@ if(!is_login){
       {/* </Container> */}
     </>
   );
-};
 };
 // const Container = styled.header`
 // 	padding: 0 24px;
