@@ -3,14 +3,17 @@ import styled from "styled-components";
 import logo from "../logo.jpg";
 import {Grid, Button, Text} from "../elements";
 import { history } from "../redux/configStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as logoutAction } from "../redux/modules/user";
 
 const Header = (props) => {
   const dispatch = useDispatch();
+  
+  const is_login = useSelector((state) => state.user.is_login);
   const is_token = document.cookie? true:false
-    console.log(is_token);
-  if (is_token){
+    console.log(is_login);
+
+  if (is_token || is_login){
     return(
       <>
       
@@ -19,13 +22,11 @@ const Header = (props) => {
             <Button
             _onClick={()=>{history.push('/main')}}
             text = "Home"
-            primary
             />
             <Button
             _onClick={()=>{dispatch(logoutAction.logoutDB());}
             }
             text = "로그아웃"
-            primary
             />
 
         </Grid>
@@ -36,6 +37,8 @@ const Header = (props) => {
       </>
     );
   }
+
+if(!is_login){
   return (
     <>
      {/* <Container>       */}
@@ -61,6 +64,7 @@ const Header = (props) => {
       {/* </Container> */}
     </>
   );
+};
 };
 // const Container = styled.header`
 // 	padding: 0 24px;

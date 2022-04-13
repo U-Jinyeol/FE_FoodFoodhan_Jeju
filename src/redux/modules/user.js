@@ -30,6 +30,7 @@ const loginDB = (username, password) => {
         console.log(res);
         setCookie("token", res.data.token, 7);
         localStorage.setItem("username", res.data.username);
+        localStorage.setItem("is_login", true);
         dispatch(logIn({ username: username }));
         history.replace("/main");
       })
@@ -67,6 +68,7 @@ const logoutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("is_login");
     dispatch(logOut());
     history.replace("/login");
   };

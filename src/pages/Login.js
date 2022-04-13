@@ -1,26 +1,26 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styled from"styled-components"
 
 import { Button, Grid, Input, Text } from "../elements";
 
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import {actionCreators as logIn} from "../redux/modules/user";
 
 const Login = ({history}) => {
-   
+    const isLogin = useSelector((store) => store.user.is_login);
     const dispatch = useDispatch();
    
     //ID = username
     const [username, setUserName] = useState("");
     const [password, setPwd] = useState("");
 
-    const login = () =>{
-        if ( username === "" || password === "" ){
-            window.alert("모두 입력해주세요!")
-            return;
-        }
+    useEffect(() => {
+		if (isLogin) history.push('/main');
+	});
+
+    const login = (e) =>{
+        e.preventDefault();
         dispatch(logIn.loginDB(username,password)); // 리덕스 로그인 db 연결
-        history.replace("/main"); 
     }
 
     // const kakao_login = () =>{
@@ -39,9 +39,7 @@ const Login = ({history}) => {
             </Grid>
 
             <form
-                onSubmit = {(e) => {
-                e.preventDefault();
-                }}>
+                onSubmit = {login}>
             <Grid padding={16}>
                 
                 <Input
@@ -57,7 +55,7 @@ const Login = ({history}) => {
 
             </Grid>
 
-            <Button _onClick={login} type="submit" text= "로그인"/>
+            <Button  type="submit" text= "로그인"/>
             {/* <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/> */}
             <Button _onClick={() => history.push("/signup")}  text= "회원가입"/>
         
