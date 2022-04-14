@@ -17,7 +17,11 @@ const Header = (props) => {
     return(
       <>
       
-        <Grid gap = "10px;">
+        <LoginGrid>
+            <Button 
+            _onClick={()=>{history.push('/making')}}
+            text="About us"
+            />
             
             <Button
             _onClick={()=>{history.push('/main')}}
@@ -29,9 +33,10 @@ const Header = (props) => {
             text = "로그아웃"
             />
 
-        </Grid>
+        </LoginGrid>
+
            <Grid is_flex1>
-           <HeadImage src={logo} />
+           <HeadImage src={logo}  />
          </Grid>
     
       </>
@@ -40,8 +45,13 @@ const Header = (props) => {
 
   return (
     <>
-     {/* <Container>       */}
-       <Login>
+     
+       <LoginGrid>
+           <Button 
+            _onClick={()=>{history.push('/making')}}
+            text="About us"
+            />
+
             <Button 
             _onClick={()=>{history.push('/main')}}
             text="Home"
@@ -56,34 +66,24 @@ const Header = (props) => {
             _onClick={()=>{history.push('/signup')}}
             text = "회원가입"
             />
-      </Login>
+      </LoginGrid>
       <Grid is_flex1>
         <HeadImage src={logo} />
       </Grid>
-      {/* </Container> */}
+    
     </>
   );
 };
-// const Container = styled.header`
-// 	padding: 0 24px;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: space-between;
-// 	background-color: #fff;
-// 	width: 100%;
-// 	height: 80px;
-// 	position: fixed;
-// 	left: 0;
-// 	top: 0;
-// `;
 
 const HeadImage = styled.img`
   max-width: 500px;
   width: 100%;
   margin: 0 auto 50px auto;
+  
 `;
 
-const Login = styled.div`
+const LoginGrid = styled.div`
+  padding: 10px;
   display: flex;
   justify-content: right;
   margin-right: 5px;

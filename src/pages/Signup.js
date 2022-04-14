@@ -4,6 +4,7 @@ import { Input,Button, Text, Grid } from "../elements";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as signupAction } from "../redux/modules/user";
+import signupimg from "../signupimg.jpg";
 
 
 const Signup = ({history}) => {
@@ -38,15 +39,18 @@ const Signup = ({history}) => {
 
   return (
     <React.Fragment>
-    <Grid padding={16}>
-        <Text type="heading">회원가입 페이지</Text>
-    </Grid>
-
+      <Paddinggrid2> 
+        <hr width="400px" color="#f49a28" ></hr>
+          <SignupImage src={signupimg} />
+        <hr width="400px" color="#f49a28"></hr>
+        </Paddinggrid2>
+  
     <form
         onSubmit = {(e) => {
           e.preventDefault();
         }}>
       <Grid padding={16}>
+            <Paddinggrid>
             <Input
             label = "아이디"
             _onChange = {(e) =>setUserName(e.target.value)}
@@ -69,13 +73,41 @@ const Signup = ({history}) => {
             _onChange = {(e) =>setPwdCheck(e.target.value)}
             type="Password"
             placeholder="비밀번호를 다시 한번 입력해주세요."/>
-
+        </Paddinggrid>
         </Grid>
-
-        <Button _onClick={signup} type="submit" text= "가입완료"/>
-        <Button _onClick={() => history.push("/main")}  text= "취소"/>
+          <Signupbutton>
+        <Button 
+        _onClick={signup} type="submit" text= "가입완료"
+        bgcolor = "#f49a28" color="white"/>
+        <Button _onClick={() => history.push("/main")}  text= "취소"
+        bgcolor = "#f49a28" color = "white"/>
+          </Signupbutton>
     </form>
 </React.Fragment>
   )};
+
+const SignupImage = styled.img`
+  max-width: 250px;
+  width: 100%;
+  display: flex;
+  margin: auto;
+  padding: 20px 0px 20px 0px;
+`;
+const Signupbutton = styled.div`
+  margin: auto;
+  width: 220px;
+  padding: 20px;
+`;
+
+const Paddinggrid = styled.div`
+  padding-top: 10px;
+`;
+
+const Paddinggrid2 = styled.div`
+  padding-top: 40px;
+`;
+
+
+
 
 export default Signup;

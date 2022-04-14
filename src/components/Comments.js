@@ -15,6 +15,7 @@ import { BiXCircle } from "react-icons/bi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import card from "../redux/modules/card";
+import Permit from "../Permit"
 
 const Comments = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const Comments = () => {
   const params = useParams();
   console.log(comment_list);
   console.log(params);
+
+  const is_login = localStorage.getItem("is_login");
+  const username = localStorage.getItem("username");
 
   const toggleEditing = (commentId) => {
     dispatch(isEdit(commentId));
@@ -43,15 +47,25 @@ const Comments = () => {
           onChange={(e) => setComm(e.target.value)}
           placeholder="댓글 입력"
         />
-        <CommentBtn
-          type="submit"
-          onClick={() => {
-            console.log(params.openApiId);
-            dispatch(postCommentAX(comm, params.openApiId));
-          }}
-        >
-          댓글 등록
-        </CommentBtn>
+            {is_login? (
+            
+                <CommentBtn
+                  type="submit"
+                  onClick={() => {
+                    console.log(params.openApiId);
+                    dispatch(postCommentAX(comm, params.openApiId));
+                  }}
+                >
+                  댓글 등록
+                </CommentBtn>
+            ) : (
+                <CommentBtn
+                  type="submit"
+                  onClick={() => {
+                    window.alert("회원 가입을 해주세요!")}}
+                >
+                  댓글 등록
+                </CommentBtn>)}
       </CommWrap>
       <br />
 
@@ -98,7 +112,9 @@ const Comments = () => {
                     <h3>{comment.comment}</h3>
                     <p>{comment.userName}</p>
                   </CommentName>
-
+                  
+                  {username === comment.userName ? (
+                  <Permit>
                   <DelBox>
                     <FaRegEdit
                       style={{ marginRight: "15px", cursor: "pointer" }}
@@ -114,6 +130,7 @@ const Comments = () => {
                       }}
                     />
                   </DelBox>
+                  </Permit>):(null)}
                 </CommentBox>
               )}
             </div>
