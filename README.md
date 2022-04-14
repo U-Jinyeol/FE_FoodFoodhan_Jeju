@@ -16,7 +16,7 @@
 ![만든이들](https://ifh.cc/g/NQ0Lmp.jpg)</br>
 </br>
 
-![개더사진](https://ifh.cc/g/zvx2da.png)</br>
+![개더사진](https://ifh.cc/g/jY8RFV.jpg)</br>
 
 
 [백엔드 깃헙 바로가기](https://github.com/whyyougd/miniProject_BE)</br>
