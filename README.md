@@ -7,7 +7,7 @@
 "제주도 맛집 추천해줘!" "어느 지역으로 가는데?"</br>
 설레는 제주도 여행! 제주도 지역별 맛집을 소개해드리는 서비스 입니다! 
 
-[FoodFood한 제주 사이트로 바로가기](http:///)</br>
+[FoodFood한 제주 사이트로 바로가기](http://foodfoodhan-jeju.s3-website-us-west-2.amazonaws.com/)</br>
 </br>
 
 ###  1. 제작 기간 & 팀원 소개
@@ -16,8 +16,13 @@
 ![만든이들](https://ifh.cc/g/NQ0Lmp.jpg)</br>
 </br>
 
+![개더사진](https://ifh.cc/g/jY8RFV.jpg)</br>
+
+
+[백엔드 깃헙 바로가기](https://github.com/whyyougd/miniProject_BE)</br>
+
 ### 2. 시연 연상 
-[FoodFood한 제주 시연영상 바로보기](https://)</br>
+[FoodFood한 제주 시연영상 바로보기](https://youtu.be/ch0TCmkSgB8)</br>
 </br>
 
 ### 3. 와이어프레임
@@ -25,7 +30,7 @@
 </br>
 
 ### 4. 사용 기술
-- Hosting - AWS EC2 </br>
+- Hosting - AWS EC2 S3 </br>
 - Frontend - HTML / CSS / React </br>
 - Backend - Spring, JWT </br>
 - DB - MySQL </br>
