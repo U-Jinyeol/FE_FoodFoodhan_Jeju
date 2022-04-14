@@ -33,7 +33,7 @@ const Nav = () => {
             <React.Fragment key={idx}>
               <Tag
                 onClick={() => {
-                  // history.push(`/main/${region}`);
+                  // history.push(`/${region}`);
                   dispatch(regionCardAX(region));
                 }}
                 size="20"

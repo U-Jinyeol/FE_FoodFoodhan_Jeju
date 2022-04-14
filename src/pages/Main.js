@@ -13,8 +13,7 @@ import {
   FaPencilAlt,
 } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
-import { getLikeAX, postLikeAX } from "../redux/modules/like";
-import { loadCardAX } from "../redux/modules/card";
+import { loadCardAX, editLikeAX } from "../redux/modules/card";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import Like from "../elements/Like";
@@ -22,18 +21,26 @@ import Like from "../elements/Like";
 const Main = () => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card.cards);
-  const [is_like, setIsLike] = React.useState(false);
-  const [like_cnt, setLikeCnt] = React.useState(0);
+  const is_login = useSelector((state) => state.user.is_login);
+  // const [is_like, setIsLike] = React.useState(false);
+  // const [like_cnt, setLikeCnt] = React.useState(0);
 
   console.log(card);
 
   useEffect(() => {
     dispatch(loadCardAX());
-    // dispatch(commentCntAX());
+    return () => {
+      console.log("cleanUp 함수");
+    };
   }, []);
 
   const toggleLike = (openApiId) => {
-    dispatch(postLikeAX(openApiId));
+    if (is_login) {
+      dispatch(editLikeAX(openApiId));
+    } else {
+      window.alert("로그인 후 좋아요를 눌러주세요!");
+      history.push("/login");
+    }
   };
 
   return (
@@ -49,9 +56,9 @@ const Main = () => {
             <Fragment key={idx}>
               <CardBox>
                 <HeadBox>
-                  <HeadText>{card.storeName}</HeadText>
+                  <HeadText>{card.openApi.storeName}</HeadText>
                 </HeadBox>
-                <Img src={card.image} />
+                <Img src={card.openApi.image} />
 
                 <Grid
                   is_flex3
@@ -63,30 +70,30 @@ const Main = () => {
                     style={{ cursor: "pointer" }}
                     size={20}
                   ></FaRegCommentDots>
-                  <Text margin="5px">123</Text>
+                  <Text margin="5px">{card.commentCnt}</Text>
 
                   <Like
-                    heart={is_like}
+                    heart={card.heartState}
                     onClick={() => {
-                      toggleLike(card.openApiId);
+                      toggleLike(card.openApi.openApiId);
                     }}
                   />
-                  <Text margin="5px">451</Text>
+                  <Text margin="5px">{card.hearts}</Text>
                 </Grid>
                 <TextBox>
                   <span>
                     <FaTags style={{ margin: "10px 0 0 0" }} />
-                    <h3>{card.regionName}</h3>
+                    <h3>{card.openApi.regionName}</h3>
                   </span>
                   <br />
                   <FaPencilAlt style={{ margin: "25px 0 0 0" }} />
-                  <h4>{card.intro}</h4>
+                  <h4>{card.openApi.intro}</h4>
                 </TextBox>
               </CardBox>
               <button
                 className="detailBtn"
                 onClick={() => {
-                  history.push(`/detail/${card.openApiId}`);
+                  history.push(`/detail/${card.openApi.openApiId}`);
                 }}
               >
                 Detail
@@ -111,7 +118,7 @@ const HeadText = styled.h2`
 
 const CardBox = styled.div`
   border: 0.5px solid #d7d8d9;
-  color: #0f342b;
+  color: #0f251f;
   max-width: 330px;
   width: 100%;
   height: 480px;

@@ -42,6 +42,7 @@ const initialState = {
 //미들웨어 댓글 가져오기
 export const getCommentAX = (openApiId) => {
   return async function (dispatch, getState) {
+    const accessToken = document.cookie.split("=")[1];
     try {
       const { data } = await axios.get(
         `http://3.37.89.93/api/comment/${openApiId}`,
@@ -73,6 +74,7 @@ export const postCommentAX = (comment, storeId) => {
   return async function (dispatch, getState) {
     console.log("댓글등록내용", comment, storeId);
     console.log(localStorage.getItem("username"));
+    const accessToken = document.cookie.split("=")[1];
 
     try {
       const { data } = await axios.post(
@@ -106,6 +108,7 @@ export const postCommentAX = (comment, storeId) => {
 export const deleteCommentAX = (comment) => {
   return async function (dispatch, getState) {
     console.log("삭제할 댓글 아이디", comment);
+    const accessToken = document.cookie.split("=")[1];
     try {
       const { data } = await axios.delete(
         `http://3.37.89.93/api/comment/${comment.commentId}`,
@@ -144,6 +147,7 @@ export const isEdit = (commentId) => {
 //미들웨어 댓글 수정
 export const updateCommentAX = (comment, openApiId, newComm) => {
   return async function (dispatch, getState) {
+    const accessToken = document.cookie.split("=")[1];
     console.log("수정 할 댓글", comment.commentId, openApiId, newComm);
     try {
       const { data } = await axios.put(
