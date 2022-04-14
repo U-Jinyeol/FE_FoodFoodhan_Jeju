@@ -41,6 +41,11 @@ const Detail = (props) => {
     }
   };
 
+  if (card.length == 0) {
+    console.log("되라 제발");
+    return <></>;
+  }
+
   return (
     <>
       <Grid is_flex2 margin="40px auto 0 auto">
