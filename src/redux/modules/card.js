@@ -27,7 +27,7 @@ export const loadCardAX = () => {
   return async function (dispatch, getState) {
     const accessToken = document.cookie.split("=")[1];
     try {
-      const { data } = await axios.get("http://3.37.89.93/api/test", {
+      const { data } = await axios.get("http://3.37.89.93/api/main", {
         headers: {
           "X-AUTH-TOKEN": `${accessToken}`,
         },
