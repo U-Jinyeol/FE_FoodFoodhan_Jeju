@@ -34,7 +34,6 @@ const rootReducer = combineReducers({
 //       })
 //     : compose;
 
-
 //리듀서 말고 추가로 묶어줄 모음
 const enhancer = applyMiddleware(...middlewares);
 

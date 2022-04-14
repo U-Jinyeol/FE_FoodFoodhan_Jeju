@@ -30,13 +30,13 @@ function App() {
     <React.Fragment>
       <Header></Header>
       <ConnectedRouter history={history}>
-        <Switch>
-          <Route path="/making" exact component={Making} />
-          <Route path="/" exact component={Main} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
-          <Route path="/detail/:openApiId" exact component={Detail} />
-        </Switch>
+        {/* <Switch> */}
+        <Route path="/" exact component={Main} />
+        <Route path="/making" exact component={Making} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/detail/:openApiId" exact component={Detail} />
+        {/* </Switch> */}
       </ConnectedRouter>
     </React.Fragment>
   );

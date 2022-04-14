@@ -4,7 +4,6 @@ const accessToken = document.cookie.split("=")[1];
 
 // Action
 const LOAD_CARD = "LOAD_CARD";
-const UPDATE_CARD = "UPDATE_CARD";
 const EDIT_LIKE = "EDIT_LIKE";
 
 // Action creators
@@ -13,9 +12,9 @@ export const loadCard = (payload) => ({
   payload,
 });
 
-export const editLike = (like_data) => ({
+export const editLike = (payload) => ({
   type: EDIT_LIKE,
-  payload: { like_data },
+  payload,
 });
 
 // 초기값
@@ -26,8 +25,9 @@ const initialState = {
 //middleware 메인화면 LOAD
 export const loadCardAX = () => {
   return async function (dispatch, getState) {
+    const accessToken = document.cookie.split("=")[1];
     try {
-      const { data } = await axios.get("http://3.37.89.93/api/main", {
+      const { data } = await axios.get("http://3.37.89.93/api/test", {
         headers: {
           "X-AUTH-TOKEN": `${accessToken}`,
         },
@@ -45,32 +45,11 @@ export const loadCardAX = () => {
   };
 };
 
-//middleware 댓글수
-// export const commentCntAX = (openApiId) => {
-//   return async function (dispatch, getState) {
-//     try {
-//       const { data } = await axios.get(`/api/comment/${openApiId}/commentCnt`, {
-//         headers: {
-//           "X-AUTH-TOKEN": `${accessToken}`,
-//         },
-//       });
-//       console.log(data);
-
-//       // let card_list = [...data];
-
-//       // console.log(card_list);
-//       // dispatch(loadCard(card_list));
-//     } catch (error) {
-//       alert("에러가 발생했습니다.");
-//       console.log(error);
-//     }
-//   };
-// };
-
 //middleware 카테고리
 export const regionCardAX = (regionName) => {
   return async function (dispatch, getState) {
     console.log(regionName);
+    const accessToken = document.cookie.split("=")[1];
     try {
       const { data } = await axios.get(
         `http://3.37.89.93/api/main/${regionName}`,
@@ -83,9 +62,10 @@ export const regionCardAX = (regionName) => {
       console.log(data);
 
       let region_data = [...data];
-      console.log(region_data);
+      console.log(`${accessToken}`);
 
       if (regionName === "전체보기") {
+        history.replace("/");
         return dispatch(loadCardAX());
       }
 
@@ -101,6 +81,7 @@ export const regionCardAX = (regionName) => {
 export const detailCardAX = (openApiId) => {
   return async function (dispatch, getState, { history }) {
     console.log(openApiId);
+    const accessToken = document.cookie.split("=")[1];
     try {
       const { data } = await axios.get(
         `http://3.37.89.93/api/main/${openApiId}/detail`,
@@ -112,11 +93,42 @@ export const detailCardAX = (openApiId) => {
       );
       console.log(data);
 
-      let detail_data = [{ ...data }];
+      let detail_data = [...data];
       console.log(detail_data);
       dispatch(loadCard(detail_data));
     } catch (error) {
       alert("상세 페이지 실패");
+      console.log(error);
+    }
+  };
+};
+
+export const editLikeAX = (openApiId) => {
+  console.log(openApiId);
+  return async function (dispatch, getState, { history }) {
+    const accessToken = document.cookie.split("=")[1];
+    try {
+      const { data } = await axios.post(
+        `http://3.37.89.93/api/heart/${openApiId}`,
+        {},
+        {
+          headers: {
+            "X-AUTH-TOKEN": `${accessToken}`,
+          },
+        }
+      );
+      console.log(data);
+      console.log(accessToken);
+
+      let like_state = {
+        heartState: data,
+        openApiId: openApiId,
+      };
+
+      console.log(like_state);
+      dispatch(editLike(like_state));
+    } catch (error) {
+      alert("에러가 발생했습니다.");
       console.log(error);
     }
   };
@@ -191,18 +203,21 @@ const card = (state = initialState, action) => {
 
     case EDIT_LIKE: {
       console.log(action.payload);
-    }
+      console.log(state);
 
-    // case UPDATE_CARD: {
-    //   console.log(action.payload);
-    //   const update_list = state.cards.map((e) => {
-    //     if (action.payload.id === e.id) {
-    //       return { ...e, title: action.payload.update };
-    //     }
-    //     return e;
-    //   });
-    //   return { cards: update_list };
-    // }
+      const edit_like = state.cards.map((e) => {
+        if (action.payload.openApiId === e.openApi.openApiId) {
+          if (action.payload.heartState === true) {
+            return { ...e, heartState: true, hearts: e.hearts + 1 };
+          } else {
+            return { ...e, heartState: false, hearts: e.hearts - 1 };
+          }
+        } else {
+          return e;
+        }
+      });
+      return { cards: edit_like };
+    }
 
     default:
       return state;
