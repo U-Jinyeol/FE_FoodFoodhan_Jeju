@@ -15,7 +15,6 @@ import { actionCreators } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
 
 function App() {
-
   const dispatch = useDispatch();
 
   const is_login = localStorage.getItem("is_login") ? true : false;
@@ -31,8 +30,7 @@ function App() {
       <Header></Header>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path="/main" exact component={Main} />
-          <Route path="/main/:region_name" exact component={Main} />
+          <Route path="/" exact component={Main} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/detail/:openApiId" exact component={Detail} />

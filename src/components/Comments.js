@@ -8,7 +8,10 @@ import comment, {
   updateCommentAX,
   isEdit,
 } from "../redux/modules/comment";
-import { FaRegEdit, FaTrashAlt, FaRegWindowClose } from "react-icons/fa";
+
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import { BiXCircle } from "react-icons/bi";
+
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import card from "../redux/modules/card";
@@ -60,7 +63,7 @@ const Comments = () => {
           <Fragment key={idx}>
             <div>
               {comment.is_edit ? (
-                <CommentBox>
+                <EditBox>
                   <CommentName>
                     <EditInput
                       type="text"
@@ -69,28 +72,26 @@ const Comments = () => {
                     />
                   </CommentName>
 
-                  <DelBox>
-                    <EditBtn
-                      type="button"
-                      onClick={() => {
-                        console.log("수정완료");
-                        dispatch(
-                          updateCommentAX(comment, newComm),
-                          toggleEditing(comment.commentId)
-                        );
-                      }}
-                    >
-                      수정완료
-                    </EditBtn>
-                    <FaRegWindowClose
-                      size={20}
-                      style={{ marginLeft: "5px", cursor: "pointer" }}
-                      onClick={() => {
-                        toggleEditing(comment.commentId);
-                      }}
-                    />
-                  </DelBox>
-                </CommentBox>
+                  <EditBtn
+                    type="button"
+                    onClick={() => {
+                      console.log("수정완료");
+                      dispatch(
+                        updateCommentAX(comment, params.openApiId, newComm),
+                        toggleEditing(comment.commentId)
+                      );
+                    }}
+                  >
+                    Edit
+                  </EditBtn>
+                  <BiXCircle
+                    size={40}
+                    style={{ marginLeft: "5px", cursor: "pointer" }}
+                    onClick={() => {
+                      toggleEditing(comment.commentId);
+                    }}
+                  />
+                </EditBox>
               ) : (
                 <CommentBox key={idx}>
                   <CommentName>
@@ -124,7 +125,8 @@ const Comments = () => {
 };
 
 const HeadText = styled.h1`
-  color: #017356;
+  color: #646464;
+  text-align: center;
 `;
 
 const CommentBox = styled.div`
@@ -150,6 +152,8 @@ const CommentName = styled.div`
 `;
 
 const CommWrap = styled.div`
+  display: flex;
+  justify-content: center;
   box-sizing: border-box;
   vertical-align: middle;
 `;
@@ -159,13 +163,17 @@ const CommentInput = styled.input`
   border: 1px solid #d7d8d9;
   width: 400px;
   height: 30px;
+  border: 1px solid #007356;
+  :focus {
+    outline: 1px solid #007356;
+  }
 `;
 
 const CommentBtn = styled.button`
-  border: 1px solid #d7d8d9;
-  background-color: black;
+  border: none;
+  background-color: #007356;
   width: 80px;
-  height: 30px;
+  height: 35px;
   cursor: pointer;
   color: white;
   margin-left: 10px;
@@ -174,18 +182,30 @@ const CommentBtn = styled.button`
     font-weight: 900;
   }
 `;
+const EditBox = styled.div`
+  display: flex;
+  margin: 10px auto;
+  width: 500px;
+  align-items: center;
+  height: 95.8px;
+`;
 
 const EditInput = styled.input`
   border-radius: 0;
   border: 1px solid #d7d8d9;
   width: 400px;
-  height: 30px;
+  height: 40px;
   box-sizing: border-box;
+  :focus {
+    outline: 1px solid #f49b26;
+  }
 `;
 
 const EditBtn = styled.button`
   border: none;
-  background-color: black;
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #f49b26;
   width: 80px;
   height: 30px;
   cursor: pointer;
@@ -194,7 +214,7 @@ const EditBtn = styled.button`
   box-sizing: border-box;
   :hover {
     box-shadow: 0 0 4px black;
-    font-weight: 900;
+    font-weight: 700;
   }
 `;
 

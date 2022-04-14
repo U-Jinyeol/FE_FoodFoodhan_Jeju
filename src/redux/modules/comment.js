@@ -1,4 +1,5 @@
 import axios from "axios";
+const accessToken = document.cookie.split("=")[1];
 
 // Action
 const ADD_COMM = "comment/ADD_COMM";
@@ -43,7 +44,12 @@ export const getCommentAX = (openApiId) => {
   return async function (dispatch, getState) {
     try {
       const { data } = await axios.get(
-        `http://3.37.89.93/api/comment/${openApiId}`
+        `http://3.37.89.93/api/comment/${openApiId}`,
+        {
+          headers: {
+            "X-AUTH-TOKEN": `${accessToken}`,
+          },
+        }
       );
       console.log("댓글 가져오기", data);
 
@@ -67,7 +73,7 @@ export const postCommentAX = (comment, storeId) => {
   return async function (dispatch, getState) {
     console.log("댓글등록내용", comment, storeId);
     console.log(localStorage.getItem("username"));
-    const accessToken = document.cookie.split("=")[1];
+
     try {
       const { data } = await axios.post(
         "http://3.37.89.93/api/comment/",
@@ -79,7 +85,7 @@ export const postCommentAX = (comment, storeId) => {
         },
         {
           headers: {
-            accessToken: `${accessToken}`,
+            "X-AUTH-TOKEN": `${accessToken}`,
           },
         }
       );
@@ -102,7 +108,12 @@ export const deleteCommentAX = (comment) => {
     console.log("삭제할 댓글 아이디", comment);
     try {
       const { data } = await axios.delete(
-        `http://3.37.89.93/api/comment/${comment.commentId}`
+        `http://3.37.89.93/api/comment/${comment.commentId}`,
+        {
+          headers: {
+            "X-AUTH-TOKEN": `${accessToken}`,
+          },
+        }
       );
       console.log(data);
 
@@ -131,17 +142,21 @@ export const isEdit = (commentId) => {
 };
 
 //미들웨어 댓글 수정
-export const updateCommentAX = (comment, newComm) => {
+export const updateCommentAX = (comment, openApiId, newComm) => {
   return async function (dispatch, getState) {
-    console.log("수정 할 댓글", comment, newComm);
+    console.log("수정 할 댓글", comment.commentId, openApiId, newComm);
     try {
       const { data } = await axios.put(
         `http://3.37.89.93/api/comment/${comment.commentId}`,
         {
           comment: newComm,
-          userId: "12",
-          storeId: "1",
-          userName: "22",
+          userName: localStorage.getItem("username"),
+          storeId: openApiId,
+        },
+        {
+          headers: {
+            "X-AUTH-TOKEN": `${accessToken}`,
+          },
         }
       );
       console.log(data);
@@ -179,9 +194,10 @@ const comment = (state = initialState, action) => {
 
     case UPDATE_COMM: {
       console.log(action.payload);
-      const update_list = state.cards.map((e) => {
-        if (action.payload.id === e.id) {
-          return { ...e, title: action.payload.update };
+      console.log(state);
+      const update_list = state.comments.map((e) => {
+        if (action.payload.commentId === e.commentId) {
+          return { ...e, comment: action.payload.comment };
         }
         return e;
       });

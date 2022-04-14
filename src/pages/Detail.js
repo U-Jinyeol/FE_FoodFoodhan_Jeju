@@ -63,7 +63,7 @@ const Img = styled.img`
 `;
 
 const CardBox = styled.div`
-  border: 0.5px solid #d7d8d9;
+  border: 0.5px solid #54a48f;
   max-width: 600px;
   width: 100%;
   height: 700px;
@@ -73,6 +73,7 @@ const CardBox = styled.div`
 
   h1 {
     text-align: center;
+    color: #007356;
   }
   h5 {
     font-size: 20px;

@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import "./Main.css";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import Nav from "../components/Nav";
@@ -12,28 +13,28 @@ import {
   FaPencilAlt,
 } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
-
-import { LikeAX, loadCardAX } from "../redux/modules/card";
+import { getLikeAX, postLikeAX } from "../redux/modules/like";
+import { loadCardAX } from "../redux/modules/card";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import Like from "../elements/Like";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const [is_like, setIs_like] = useState(true);
   const card = useSelector((state) => state.card.cards);
+  const [is_like, setIsLike] = React.useState(false);
+  const [like_cnt, setLikeCnt] = React.useState(0);
 
   console.log(card);
 
   useEffect(() => {
     dispatch(loadCardAX());
+    // dispatch(commentCntAX());
   }, []);
 
-  const toggleLike = () => setIs_like((is_like) => !is_like);
-
-  // const likeColor = (idx, store_id) => {
-  //   dispatch(LikeAX(store_id));
-  // };
+  const toggleLike = (openApiId) => {
+    dispatch(postLikeAX(openApiId));
+  };
 
   return (
     <>
@@ -49,13 +50,6 @@ const Main = () => {
               <CardBox>
                 <HeadBox>
                   <HeadText>{card.storeName}</HeadText>
-                  <p
-                    onClick={() => {
-                      history.push(`/detail/${card.openApiId}`);
-                    }}
-                  >
-                    상세보기
-                  </p>
                 </HeadBox>
                 <Img src={card.image} />
 
@@ -72,9 +66,9 @@ const Main = () => {
                   <Text margin="5px">123</Text>
 
                   <Like
-                    heart={true}
+                    heart={is_like}
                     onClick={() => {
-                      toggleLike();
+                      toggleLike(card.openApiId);
                     }}
                   />
                   <Text margin="5px">451</Text>
@@ -89,13 +83,14 @@ const Main = () => {
                   <h4>{card.intro}</h4>
                 </TextBox>
               </CardBox>
-              <DetailBtn
+              <button
+                className="detailBtn"
                 onClick={() => {
                   history.push(`/detail/${card.openApiId}`);
                 }}
               >
-                <BiPlusMedical />
-              </DetailBtn>
+                Detail
+              </button>
             </Fragment>
           );
         })}
@@ -111,11 +106,12 @@ const HeadBox = styled.div`
 `;
 
 const HeadText = styled.h2`
-  color: #017356;
+  color: #f49a28;
 `;
 
 const CardBox = styled.div`
   border: 0.5px solid #d7d8d9;
+  color: #0f342b;
   max-width: 330px;
   width: 100%;
   height: 480px;
@@ -123,21 +119,10 @@ const CardBox = styled.div`
   display: inline-block;
   margin: 20px 20px;
   padding-bottom: 20px;
-  overflow: auto;
   ::-webkit-scrollbar {
-    width: 10px;
+    display: none;
   }
-  ::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: grey;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
+  overflow-y: scroll;
 `;
 
 const Img = styled.img`
@@ -158,13 +143,6 @@ const TextBox = styled.div`
   h4 {
     display: inline;
   }
-`;
-
-const DetailBtn = styled.button`
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  background-color: #f49a28;
 `;
 
 export default Main;

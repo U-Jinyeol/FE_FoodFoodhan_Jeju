@@ -1,0 +1,43 @@
+.detailBtn {
+  background: #1aab8a;
+  color: #fff;
+  border: none;
+  position: relative;
+  right: 70px;
+  bottom: 218px;
+  height: 30px;
+  width: 60px;
+  font-size: 15px;
+  padding: 0;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+  text-align: center;
+  font-weight: 700;
+}
+.detailBtn:hover {
+  background: #fff;
+  color: #1aab8a;
+}
+.detailBtn:before,
+button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #1aab8a;
+  transition: 400ms ease all;
+}
+.detailBtn:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+.detailBtn:hover:before,
+button:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}
