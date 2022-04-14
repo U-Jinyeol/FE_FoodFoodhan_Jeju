@@ -46,19 +46,6 @@ const Header = (props) => {
             color="white"
             bgcolor="#007356"
           />
-
-          <Button
-            _onClick={() => {
-              dispatch(regionCardAX("전체보기"));
-            }}
-            text="Home"
-          />
-          <Button
-            _onClick={() => {
-              dispatch(logoutAction.logoutDB());
-            }}
-            text="로그아웃"
-          />
         </LoginGrid>
 
         <Grid is_flex1>
