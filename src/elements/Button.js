@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { text, _onClick, type, width, margin,bgcolor, color} = props;
+  const { text, _onClick, type, width, margin, bordercolor, bgcolor, color} = props;
 
   return (
     <React.Fragment>
-      <ElButton color={color} bgcolor={bgcolor} margin = {margin} width = {width} onClick={_onClick} type={type}>
+      <ElButton bordercolor={bordercolor} color={color} bgcolor={bgcolor} margin = {margin} width = {width} onClick={_onClick} type={type}>
         {text}
       </ElButton>
     </React.Fragment>
@@ -14,6 +14,7 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
+  bordercolor:"text",
   type: "text",
   text: "텍스트",
   _onClick: () => {},
@@ -24,6 +25,7 @@ Button.defaultProps = {
 };
 
 const ElButton = styled.button`
+  border-color: ${(props) => props.bordercolor};
   border-radius: 7px;
   width: 100%;
   background-color: ${(props) => props.bgcolor};

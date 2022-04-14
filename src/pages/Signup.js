@@ -79,9 +79,11 @@ const Signup = ({history}) => {
         <Button 
         _onClick={signup} type="submit" text= "가입완료"
         bgcolor = "#f49a28" color="white"/>
-        <Button _onClick={() => history.push("/main")}  text= "취소"
-        bgcolor = "#f49a28" color = "white"/>
+        <Button _onClick={() => history.push("/")}  text= "취소"
+        bgcolor = "#007356" color = "white" />
           </Signupbutton>
+
+          
     </form>
 </React.Fragment>
   )};
