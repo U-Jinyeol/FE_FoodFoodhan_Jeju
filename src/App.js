@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Detail from "./pages/Detail";
 import Main from "./pages/Main";
+import Making from "./pages/Making";
 import Header from "./components/Header";
 import Grid from "./elements/Grid";
 import Nav from "./components/Nav";
@@ -31,8 +32,8 @@ function App() {
       <Header></Header>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path="/main" exact component={Main} />
-          <Route path="/main/:region_name" exact component={Main} />
+          <Route path="/making" exact component={Making}/>
+          <Route path="/" exact component={Main} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/detail/:openApiId" exact component={Detail} />

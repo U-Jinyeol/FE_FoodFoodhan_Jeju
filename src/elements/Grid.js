@@ -47,6 +47,7 @@ Grid.defaultProps = {
   center: false,
   height: "100%",
   flex_wrap: "wrap",
+  display: "flex",
 };
 
 const GridBox = styled.div`

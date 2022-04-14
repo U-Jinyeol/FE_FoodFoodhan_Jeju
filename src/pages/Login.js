@@ -30,18 +30,18 @@ const Login = ({history}) => {
     // }
 
 
-
-
     return (
-        <React.Fragment>
-            <Grid padding={16}>
-                <Text type="heading">로그인 페이지</Text>
-            </Grid>
+      <React.Fragment>
+       
+        <Paddinggrid2> 
+          <hr width="400px" color="#f49a28" ></hr>
+            <LoginImage src="https://ifh.cc/g/zYd0oV.jpg" />
+          <hr width="400px" color="#f49a28"></hr>
+        </Paddinggrid2>
 
-            <form
-                onSubmit = {login}>
-            <Grid padding={16}>
-                
+        <Paddinggrid>
+            <form onSubmit = {login}>
+            <Grid padding={16}>                
                 <Input
                 label = "아이디"
                 _onChange = {(e) =>setUserName(e.target.value)}
@@ -54,13 +54,37 @@ const Login = ({history}) => {
                 placeholder="비밀번호를 입력해주세요."/>
 
             </Grid>
-
+            <Loginbutton>
             <Button  type="submit" text= "로그인"/>
             {/* <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/> */}
             <Button _onClick={() => history.push("/signup")}  text= "회원가입"/>
-        
+            </Loginbutton>
             </form>
+            </Paddinggrid>
         </React.Fragment>
     )
 }
+
+const LoginImage = styled.img`
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  margin: auto;
+  padding: 20px 0px 20px 0px;
+`;
+const Loginbutton = styled.div`
+  margin: auto;
+  width: 220px;
+  padding: 20px;
+`;
+
+const Paddinggrid = styled.div`
+  padding-top: 10px;
+`;
+
+const Paddinggrid2 = styled.div`
+  padding-top: 40px;
+`;
+
 export default Login;
+
