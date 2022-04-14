@@ -8,6 +8,5 @@
 
 [FOODFOOD한 제주 사이트로 바로가기](http:///)
 ##  1.제작 기간 & 팀원 소개
-2022.03.07 ~ 03.10
-https://ifh.cc/g/ov2fbp.jpg
-
+2022.04.08 ~ 04.14
+![만든이들]https://ifh.cc/g/ov2fbp.jpg
