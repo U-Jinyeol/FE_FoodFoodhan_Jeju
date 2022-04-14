@@ -15,7 +15,7 @@ const Login = ({history}) => {
     const [password, setPwd] = useState("");
 
     useEffect(() => {
-		if (isLogin) history.push('/main');
+		if (isLogin) history.push('/');
 	});
 
     const login = (e) =>{
@@ -55,9 +55,9 @@ const Login = ({history}) => {
 
             </Grid>
             <Loginbutton>
-            <Button  type="submit" text= "로그인"/>
+            <Button color="white" bgcolor="#f49a28" type="submit" text= "로그인"/>
             {/* <Button _onClick={kakao_login} type="submit" text= "카카오톡으로 로그인"/> */}
-            <Button _onClick={() => history.push("/signup")}  text= "회원가입"/>
+            <Button color="white" bgcolor="#007356"_onClick={() => history.push("/signup")}  text= "회원가입"/>
             </Loginbutton>
             </form>
             </Paddinggrid>

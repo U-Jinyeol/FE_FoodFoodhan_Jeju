@@ -21,16 +21,22 @@ const Header = (props) => {
             <Button 
             _onClick={()=>{history.push('/making')}}
             text="About us"
+            width = "80"
+            color="white" bgcolor="#f49a28"
             />
             
             <Button
-            _onClick={()=>{history.push('/main')}}
+            _onClick={()=>{history.push('/')}}
             text = "Home"
+            width = "80"
+            color="white" bgcolor="#007356"
             />
             <Button
             _onClick={()=>{dispatch(logoutAction.logoutDB());}
             }
             text = "로그아웃"
+            width = "80"
+            color="white" bgcolor="#007356"
             />
 
         </LoginGrid>
@@ -50,21 +56,29 @@ const Header = (props) => {
            <Button 
             _onClick={()=>{history.push('/making')}}
             text="About us"
+            width = "80"
+            color="white" bgcolor="#f49a28"
             />
 
             <Button 
-            _onClick={()=>{history.push('/main')}}
+            _onClick={()=>{history.push('/')}}
             text="Home"
+            width = "80"
+            color="white" bgcolor="#007356"
             />
              
             <Button
             _onClick={()=>{history.push('/login')}}
             text = "로그인"
+            width = "80"
+            color="white" bgcolor="#007356"
             />
 
             <Button
             _onClick={()=>{history.push('/signup')}}
             text = "회원가입"
+            width = "80"
+            color="white" bgcolor="#007356"
             />
       </LoginGrid>
       <Grid is_flex1>

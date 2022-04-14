@@ -32,7 +32,7 @@ const loginDB = (username, password) => {
         localStorage.setItem("username", res.data.username);
         localStorage.setItem("is_login", true);
         dispatch(logIn({ username: username }));
-        history.replace("/main");
+        history.replace("/");
       })
       .catch((err) => {
         window.alert("없는 회원정보 입니다. 회원가입을 해주세요.");
